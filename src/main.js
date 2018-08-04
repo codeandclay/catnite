@@ -8,6 +8,8 @@ import PIXI from 'expose-loader?PIXI!phaser-ce/build/custom/pixi.js';
 import p2 from 'expose-loader?p2!phaser-ce/build/custom/p2.js';
 import Phaser from 'expose-loader?Phaser!phaser-ce/build/custom/phaser-split.js';
 
+import MenuState from './states/menu';
+
 /**
  * Create a new Phaser game instance.
  * And render a single sprite so we make sure it works.
@@ -17,32 +19,27 @@ console.clear();
 
 var colors = window.colors;
 
-var game = new Phaser.Game({
-  
-  antialias: false,
-  crisp: true,
-  // renderer: Phaser.AUTO,
-  renderer: Phaser.CANVAS,
-  scaleMode: Phaser.ScaleManager.SHOW_ALL,
-  scaleH: 4,
-  scaleV: 4,
-  width: 16*10,
-  height: (16*10)*9/16,
-  
-  state: {
-
-    preload: function() {
-      this.load.image('menu_bg', 'assets/images/menu_bg.png');
-    },
-
-    create: function() {
-      this.add.image(0, 0, 'menu_bg');
-    },
-
-    render: function() {
-      var debug = this.game.debug;
-      // debug.scale(5, 50);
+class Game extends Phaser.Game {
+  constructor () {
+    var config = {
+      antialias: false,
+      crisp: true,
+      // renderer: Phaser.AUTO,
+      renderer: Phaser.CANVAS,
+      scaleMode: Phaser.ScaleManager.SHOW_ALL,
+      width: 16*10,
+      height: (16*10)*9/16,
+      state: MenuState
     }
 
+    super(config);
+
+    // this.state.add('Boot', BootState, false);
+    // this.state.add('Splash', SplashState, false);
+    this.state.add('Menu', MenuState, false);
+    // this.state.add('Game', GameState, false);
+    this.state.start('Menu')
   }
-});
+}
+
+window.game = new Game();
