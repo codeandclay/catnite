@@ -13,18 +13,40 @@ import Phaser from 'expose-loader?Phaser!phaser-ce/build/custom/phaser-split.js'
  * And render a single sprite so we make sure it works.
  */
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+console.clear();
 
-function preload() {
-  game.load.image('logo', './assets/images/phaser.png');
-}
+var colors = window.colors;
 
-function create() {
-  var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-  logo.anchor.setTo(0.5, 0.5);
-};
+var game = new Phaser.Game({
+  
+  antialias: false,
+  crisp: true,
+  // renderer: Phaser.AUTO,
+  renderer: Phaser.CANVAS,
+  scaleMode: Phaser.ScaleManager.USER_SCALE,
+  scaleH: 4,
+  scaleV: 4,
+  width: 192,
+  height: 160,
+  
+  state: {
 
-function update() {
-  // ¯ \_(ツ)_/¯
-  // "surprise me"
-}
+    preload: function() {
+      this.load.baseURL = 'https://cdn.jsdelivr.net/gh/samme/phaser-examples-assets@v2.0.0/assets/';
+      this.load.crossOrigin = 'anonymous';
+      this.load.image('dude', 'sprites/phaser-dude.png');
+      this.load.image('grid', 'tests/debug-grid-1920x1920.png');
+    },
+
+    create: function() {
+      this.add.image(0, 0, 'grid');
+      this.add.sprite(0, 0, 'dude');
+    },
+
+    render: function() {
+      var debug = this.game.debug;
+      // debug.scale(5, 50);
+    }
+
+  }
+});
