@@ -26,8 +26,8 @@ var game = new Phaser.Game({
   scaleMode: Phaser.ScaleManager.SHOW_ALL,
   scaleH: 4,
   scaleV: 4,
-  width: 192,
-  height: 160,
+  width: 16*10,
+  height: (16*10)*9/16,
   
   state: {
 
