@@ -1,7 +1,7 @@
 {
-  "name": "phaser-webpack",
+  "name": "CatNite",
   "version": "1.0.0",
-  "description": "Base phaser project.",
+  "description": "Gruesome jump game.",
   "dependencies": {
     "phaser-ce": "^2.11.0"
   },
