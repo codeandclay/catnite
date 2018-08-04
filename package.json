@@ -6,6 +6,9 @@
     "phaser-ce": "^2.11.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
     "expose-loader": "^0.7.3",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0"
