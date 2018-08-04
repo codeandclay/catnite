@@ -23,7 +23,7 @@ var game = new Phaser.Game({
   crisp: true,
   // renderer: Phaser.AUTO,
   renderer: Phaser.CANVAS,
-  scaleMode: Phaser.ScaleManager.USER_SCALE,
+  scaleMode: Phaser.ScaleManager.SHOW_ALL,
   scaleH: 4,
   scaleV: 4,
   width: 192,
