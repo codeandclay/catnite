@@ -32,15 +32,11 @@ var game = new Phaser.Game({
   state: {
 
     preload: function() {
-      this.load.baseURL = 'https://cdn.jsdelivr.net/gh/samme/phaser-examples-assets@v2.0.0/assets/';
-      this.load.crossOrigin = 'anonymous';
-      this.load.image('dude', 'sprites/phaser-dude.png');
-      this.load.image('grid', 'tests/debug-grid-1920x1920.png');
+      this.load.image('menu_bg', 'assets/images/menu_bg.png');
     },
 
     create: function() {
-      this.add.image(0, 0, 'grid');
-      this.add.sprite(0, 0, 'dude');
+      this.add.image(0, 0, 'menu_bg');
     },
 
     render: function() {
