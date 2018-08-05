@@ -15,7 +15,7 @@ export default class extends Phaser.State {
     this.add.image(0,0,'menu_bg');
 
     // Add miner
-    var miner = game.add.sprite(
+    var miner = this.add.sprite(
       config.width/2 - config.spriteSize * 0.5,
       config.height/2 - config.spriteSize * 2, 'miner'
     );
@@ -23,7 +23,7 @@ export default class extends Phaser.State {
     miner.animations.play('run');
 
     // Add cat
-    var cat = game.add.sprite(
+    var cat = this.add.sprite(
       config.width/2 - config.spriteSize * 0.5,
       config.height/2 + config.spriteSize, 'cat_walk'
     )
