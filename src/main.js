@@ -8,8 +8,9 @@ import PIXI from 'expose-loader?PIXI!phaser-ce/build/custom/pixi.js';
 import p2 from 'expose-loader?p2!phaser-ce/build/custom/p2.js';
 import Phaser from 'expose-loader?Phaser!phaser-ce/build/custom/phaser-split.js';
 
-import MenuState from './states/menu';
 import BootState from './states/boot';
+import SplashState from '.states/splash';
+import MenuState from './states/menu';
 
 /**
  * Create a new Phaser game instance.
@@ -36,6 +37,7 @@ class Game extends Phaser.Game {
 
     // this.state.add('Splash', SplashState, false);
     this.state.add('Boot', BootState, false);
+    this.state.add('Splash', SplashState, false);
     this.state.add('Menu', MenuState, false);
     // this.state.add('Game', GameState, false);
     this.state.start('Boot')

@@ -9,6 +9,6 @@ export default class extends Phaser.State {
   }
 
   render() {
-      this.state.start('Menu');
+      this.state.start('Splash');
   }
 }
