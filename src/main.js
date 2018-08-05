@@ -12,6 +12,8 @@ import BootState from './states/boot';
 import SplashState from './states/splash';
 import MenuState from './states/menu';
 
+import config from './config';
+
 /**
  * Create a new Phaser game instance.
  * And render a single sprite so we make sure it works.
@@ -23,16 +25,6 @@ var colors = window.colors;
 
 class Game extends Phaser.Game {
   constructor () {
-    var config = {
-      antialias: false,
-      crisp: true,
-      // renderer: Phaser.AUTO,
-      renderer: Phaser.CANVAS,
-      scaleMode: Phaser.ScaleManager.SHOW_ALL,
-      width: 16*10,
-      height: (16*10)*9/16
-    }
-
     super(config);
 
     // this.state.add('Splash', SplashState, false);
