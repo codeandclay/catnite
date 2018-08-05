@@ -4,5 +4,6 @@ export default {
   renderer: Phaser.CANVAS,
   scaleMode: Phaser.ScaleManager.SHOW_ALL,
   width: 16*10,
-  height: (16*10)*9/16
+  height: (16*10)*9/16,
+  spriteSize: 16
 }

@@ -1,4 +1,5 @@
 import { centerGameObjects } from '../utils'
+import config from '../config'
 
 export default class extends Phaser.State {
   init () {}
@@ -12,6 +13,11 @@ export default class extends Phaser.State {
     //
     // load your assets
     //
+    this.load.spritesheet('miner',
+      'assets/images/sprites/miner.png',
+      config.spriteSize,
+      config.spriteSize
+     );
   }
 
   create () {
