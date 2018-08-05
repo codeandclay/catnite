@@ -19,7 +19,7 @@ export default class extends Phaser.State {
       config.width/2 - config.spriteSize * 0.5,
       config.height/2 - config.spriteSize * 2, 'miner'
     );
-    var miner_run = miner.animations.add('run', [0,1,2,3], 8, -1);
+    miner.animations.add('run', [0,1,2,3], 8, -1);
     miner.animations.play('run');
   }
 }
