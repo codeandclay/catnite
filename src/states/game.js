@@ -3,7 +3,8 @@ export default class extends Phaser.State {
   preload() { }
 
   create() {
-    console.log('Game playing');
+    // Add background
+    this.add.image(0,0,'background');
   }
 
   render() { }

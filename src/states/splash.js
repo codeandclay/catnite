@@ -30,6 +30,9 @@ export default class extends Phaser.State {
     // Load cat
     this.load.spritesheet('cat_walk', 'assets/images/sprites/cat_walk.png', 18, 15);
     this.load.spritesheet('cat_run', 'assets/images/sprites/cat_run.png', 20, 17);
+
+    // Load background
+    this.load.image('background', 'assets/images/background.png');
   }
 
   create () {
