@@ -14,6 +14,9 @@ export default class extends Phaser.State {
     // load your assets
     //
 
+    // Menu
+    this.load.image('menu_bg','./assets/images/menu_bg.png');
+
     // Load miner
     this.load.spritesheet('miner',
       'assets/images/sprites/miner.png',

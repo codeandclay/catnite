@@ -7,7 +7,6 @@ export default class extends Phaser.State {
 
   preload(){
     console.log('preload');
-    this.load.image('menu_bg','./assets/images/menu_bg.png');
   }
 
   create(){
