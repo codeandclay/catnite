@@ -34,11 +34,19 @@ export default class extends Phaser.State {
     this.physics.arcade.enable(this.miner);
     this.miner.body.gravity.y = config.gravity;
     this.miner.body.collideWorldBounds = true;
+    this.miner.body.bounce.y = config.bounceY;
+    this.miner.body.bounce.x = 1;
   }
 
   update() {
     //  Collide the miner with the platform
-    game.physics.arcade.collide(this.miner, this.platforms);
+    this.physics.arcade.collide(this.miner, this.platforms, this.collidesWithPlatform, null, this);
+  }
+
+  collidesWithPlatform(){
+    if(this.miner.body.velocity.x == 0) {
+      this.miner.body.velocity.x = config.speed;
+    }
   }
 
   render() { }
