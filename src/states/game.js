@@ -10,6 +10,11 @@ export default class extends Phaser.State {
 
     // Add background
     this.add.image(0,0,'background');
+    var yPos = config.height - config.spriteSize;
+    for ( var xPos = 0; xPos < config.width; xPos+=config.spriteSize ) {
+        let ground = this.add.image(xPos, yPos, 'tiles');
+        ground.frame = 13;
+    }
 
     // Set up platforms
     this.platforms = this.add.group();
