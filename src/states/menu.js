@@ -32,5 +32,18 @@ export default class extends Phaser.State {
     // Add text
     var text = game.add.bitmapText(config.width/2, config.height/2 - 1, 'bm_font','Placeholder instruction',16);
     text.anchor.setTo(0.5);
+
+    // Register keys
+    this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+    // Stop the following keys from propagating up to the browser
+    game.input.keyboard.addKeyCapture([ Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR ]);
+
+    // Register start_game callback
+    this.spaceKey.onDown.add(this.start_game, this);
+  }
+
+  start_game(){
+    console.log('Start game!');
   }
 }
