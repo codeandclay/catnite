@@ -28,12 +28,11 @@ class Game extends Phaser.Game {
   constructor () {
     super(config);
 
-    // this.state.add('Splash', SplashState, false);
     this.state.add('Boot', BootState, false);
     this.state.add('Splash', SplashState, false);
     this.state.add('Menu', MenuState, false);
     this.state.add('Game', GameState, false);
-    this.state.start('Boot')
+    this.state.start('Boot');
   }
 }
 

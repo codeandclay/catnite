@@ -1,16 +1,11 @@
 import config from '../config';
 
 export default class extends Phaser.State {
-  init(){
-    this.stage.backgroundColor = '#4FADED';
-  }
+  init(){ }
 
-  preload(){
-    console.log('preload');
-  }
+  preload(){ }
 
   create(){
-    console.log('create');
     this.add.image(0,0,'menu_bg');
 
     // Add miner
