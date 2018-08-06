@@ -11,6 +11,7 @@ import Phaser from 'expose-loader?Phaser!phaser-ce/build/custom/phaser-split.js'
 import BootState from './states/boot';
 import SplashState from './states/splash';
 import MenuState from './states/menu';
+import GameState from './states/game';
 
 import config from './config';
 
@@ -31,7 +32,7 @@ class Game extends Phaser.Game {
     this.state.add('Boot', BootState, false);
     this.state.add('Splash', SplashState, false);
     this.state.add('Menu', MenuState, false);
-    // this.state.add('Game', GameState, false);
+    this.state.add('Game', GameState, false);
     this.state.start('Boot')
   }
 }
