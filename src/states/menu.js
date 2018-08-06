@@ -29,5 +29,9 @@ export default class extends Phaser.State {
     )
     cat.animations.add('walk', [0,1,2,3,4,5], 8, -1);
     cat.animations.play('walk');
+
+    // Add text
+    var text = game.add.bitmapText(config.width/2, config.height/2 - config.spriteSize/10, 'bm_font','Click to play',16);
+    text.anchor.setTo(0.5);
   }
 }
