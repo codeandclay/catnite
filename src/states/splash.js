@@ -33,6 +33,9 @@ export default class extends Phaser.State {
 
     // Load background
     this.load.image('background', 'assets/images/background.png');
+
+    // Load tiles
+    this.load.spritesheet('tiles', 'assets/images/sprites/tiles.png', 16, 16);
   }
 
   create () {
