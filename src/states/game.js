@@ -27,19 +27,22 @@ export default class extends Phaser.State {
     }
 
     // Add miner
-    this.miner = this.add.sprite(0, 0, 'miner');
+    this.miner = this.add.sprite(config.spriteSize*0.5, 0, 'miner');
     this.miner.animations.add('walk', [0, 1, 2, 3], 12, true);
     this.miner.animations.play('walk');
 
     this.physics.arcade.enable(this.miner);
     this.miner.body.gravity.y = config.gravity;
     this.miner.body.collideWorldBounds = true;
+    this.miner.body.onWorldBounds = new Phaser.Signal();
+    this.miner.body.onWorldBounds.add(this.flipMiner, this);
     this.miner.body.bounce.y = config.bounceY;
     this.miner.body.bounce.x = 1;
 
     // Shrink physics body so that games appears to collide with body of
     // miner and not the empty pixels around him
     this.miner.body.setSize(6 , 8);
+    this.miner.anchor.x = 0.5;
     this.miner.body.offset.y = 8;
     this.miner.body.offset.x = 6;
   }
@@ -55,5 +58,11 @@ export default class extends Phaser.State {
     }
   }
 
-  render() { }
+  flipMiner(){
+    this.miner.scale.x *= -1;
+  }
+
+  render() {
+   // game.debug.body(this.miner);
+  }
 }
