@@ -36,6 +36,12 @@ export default class extends Phaser.State {
     this.miner.body.collideWorldBounds = true;
     this.miner.body.bounce.y = config.bounceY;
     this.miner.body.bounce.x = 1;
+
+    // Shrink physics body so that games appears to collide with body of
+    // miner and not the empty pixels around him
+    this.miner.body.setSize(6 , 8);
+    this.miner.body.offset.y = 8;
+    this.miner.body.offset.x = 6;
   }
 
   update() {
