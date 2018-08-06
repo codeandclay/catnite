@@ -25,6 +25,20 @@ export default class extends Phaser.State {
         ground.frame = 8;
         ground.body.immovable = true;
     }
+
+    // Add miner
+    this.miner = this.add.sprite(0, 0, 'miner');
+    this.miner.animations.add('walk', [0, 1, 2, 3], 12, true);
+    this.miner.animations.play('walk');
+
+    this.physics.arcade.enable(this.miner);
+    this.miner.body.gravity.y = config.gravity;
+    this.miner.body.collideWorldBounds = true;
+  }
+
+  update() {
+    //  Collide the miner with the platform
+    game.physics.arcade.collide(this.miner, this.platforms);
   }
 
   render() { }
