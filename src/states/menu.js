@@ -41,6 +41,7 @@ export default class extends Phaser.State {
 
     // Register start_game callback
     this.spaceKey.onDown.add(this.start_game, this);
+    this.input.onTap.add(this.start_game, this);
   }
 
   start_game(){
