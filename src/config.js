@@ -9,5 +9,7 @@ export default {
   gravity: 800,
   speed: 48,
   bounceY: 0.4,
-  jumpStrength: -180
+  jumpStrength: -180,
+  catSpeed: -32,
+  catInterval: 2500 // Number of ms between cat creation
 }

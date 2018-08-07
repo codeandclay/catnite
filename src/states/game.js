@@ -1,4 +1,5 @@
 import config from '../config'
+import _ from 'lodash'
 
 export default class extends Phaser.State {
   init() { }
@@ -59,11 +60,47 @@ export default class extends Phaser.State {
     this.miner.anchor.x = 0.5;
     this.miner.body.offset.y = 8;
     this.miner.body.offset.x = 6;
+
+    // Add cats
+    this.cats = this.add.group();
+    this.cats.enableBody = true;
+
+    // Create two cats
+    // Create one straight away
+    this.createCat();
+    // Then another n seconds later
+    this.time.events.add(config.catInterval, this.createCat, this);
+  }
+
+  createCat(){
+    let cat = this.cats.create(config.width + config.spriteSize, config.height - (config.spriteSize*3-1), 'cat_walk');
+    cat.body.velocity.x = config.catSpeed;
+    cat.animations.add('walk', [0, 1, 2, 3, 4, 5], 8, true);
+    cat.animations.play('walk');
   }
 
   update() {
     //  Collide the miner with the platform
     this.physics.arcade.collide(this.miner, this.platforms, this.collidesWithPlatform, null, this);
+
+    // Place a cat at other end of screen when it walks offscreen
+    this.cats.forEach(function(cat){
+      if (cat.body.velocity.x < 0 && cat.x < 0 - config.spriteSize ||
+          cat.body.velocity.x > 0 && cat.x > config.width + config.spriteSize) {
+        this.reset(cat);
+      }
+    }, this);
+  }
+
+  reset(cat){
+    cat.body.velocity.x *= _.sample([-1, 1]);
+    if(cat.body.velocity.x < 0){
+      cat.x = config.width + config.spriteSize;
+      cat.scale.x = 1;
+    } else {
+      cat.x = 0 - config.spriteSize;
+      cat.scale.x = -1;
+    }
   }
 
   collidesWithPlatform(){
