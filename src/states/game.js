@@ -103,9 +103,11 @@ export default class extends Phaser.State {
     if(cat.body.velocity.x < 0){
       cat.x = config.width + config.spriteSize;
       cat.scale.x = 1;
+      cat.body.velocity.x -= config.catVelocityIncrease;
     } else {
       cat.x = 0 - config.spriteSize;
       cat.scale.x = -1;
+      cat.body.velocity.x += config.catVelocityIncrease;
     }
   }
 

@@ -11,5 +11,6 @@ export default {
   bounceY: 0.4,
   jumpStrength: -180,
   catSpeed: -32,
-  catInterval: 2500 // Number of ms between cat creation
+  catInterval: 2500, // Number of ms between cat creation
+  catVelocityIncrease: 2.5
 }
