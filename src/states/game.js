@@ -86,6 +86,9 @@ export default class extends Phaser.State {
     //  Collide the miner with the platform
     this.physics.arcade.collide(this.miner, this.platforms, this.collidesWithPlatform, null, this);
 
+    // Collide miner with cat
+    this.physics.arcade.overlap(this.miner, this.cats, this.collidesWithCat, null, this);
+
     // Place a cat at other end of screen when it walks offscreen
     this.cats.forEach(function(cat){
       if (cat.body.velocity.x < 0 && cat.x < 0 - config.spriteSize ||
@@ -110,6 +113,16 @@ export default class extends Phaser.State {
     this.can_jump = true;
     if(this.miner.body.velocity.x == 0) {
       this.miner.body.velocity.x = config.speed;
+    }
+  }
+
+  collidesWithCat(miner, cat){
+    if(!this.can_jump && miner.body.velocity.y > 0) {
+      // kill cat
+      this.reset(cat);
+    } else {
+      // game over
+      this.state.start('Menu');
     }
   }
 
