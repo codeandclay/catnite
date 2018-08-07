@@ -5,6 +5,20 @@ export default class extends Phaser.State {
   preload() { }
 
   create() {
+    // Flags
+    this.can_jump = false;
+
+    // Register keys
+    this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+    // Stop the following keys from propagating up to the browser
+    game.input.keyboard.addKeyCapture([ Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR ]);
+
+    // Register start_game callback
+    this.leftKey.onDown.add(this.jump, this);
+    this.rightKey.onDown.add(this.jump, this);
+
     // Enable physics
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -53,6 +67,7 @@ export default class extends Phaser.State {
   }
 
   collidesWithPlatform(){
+    this.can_jump = true;
     if(this.miner.body.velocity.x == 0) {
       this.miner.body.velocity.x = config.speed;
     }
@@ -60,6 +75,27 @@ export default class extends Phaser.State {
 
   flipMiner(){
     this.miner.scale.x *= -1;
+  }
+
+  switchDirection(direction){
+    if(direction == 'left' && this.miner.body.velocity.x > 0 ||
+       direction == 'right' && this.miner.body.velocity.x < 0){
+      this.miner.body.velocity.x *= -1;
+      this.flipMiner();
+    }
+  }
+
+  jump(input){
+    let directions = {
+      'ArrowLeft': 'left',
+      'ArrowRight': 'right'
+    }
+    this.switchDirection(directions[input.event.key]);
+
+    if(this.can_jump){
+      this.miner.body.velocity.y = config.jumpStrength;
+      this.can_jump = false;
+    }
   }
 
   render() {

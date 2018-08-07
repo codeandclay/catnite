@@ -9,4 +9,5 @@ export default {
   gravity: 800,
   speed: 48,
   bounceY: 0.4,
+  jumpStrength: -180
 }
