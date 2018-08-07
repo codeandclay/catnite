@@ -34,12 +34,12 @@ export default class extends Phaser.State {
     // Stop the following keys from propagating up to the browser
     game.input.keyboard.addKeyCapture([ Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR ]);
 
-    // Register start_game callback
-    this.spaceKey.onDown.add(this.start_game, this);
-    this.input.onTap.add(this.start_game, this);
+    // Register startGame callback
+    this.spaceKey.onDown.add(this.startGame, this);
+    this.input.onTap.add(this.startGame, this);
   }
 
-  start_game(){
+  startGame(){
     this.state.start('Game');
   }
 }
