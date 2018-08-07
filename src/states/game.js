@@ -127,9 +127,9 @@ export default class extends Phaser.State {
       'ArrowLeft': 'left',
       'ArrowRight': 'right'
     }
-    this.switchDirection(directions[input.event.key]);
 
     if(this.can_jump){
+      this.switchDirection(directions[input.event.key]);
       this.miner.body.velocity.y = config.jumpStrength;
       this.can_jump = false;
     }
