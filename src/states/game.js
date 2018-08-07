@@ -15,7 +15,7 @@ export default class extends Phaser.State {
     // Stop the following keys from propagating up to the browser
     game.input.keyboard.addKeyCapture([ Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR ]);
 
-    // Register start_game callback
+    // Jump on keypress
     this.leftKey.onDown.add(this.jump, this);
     this.rightKey.onDown.add(this.jump, this);
 
