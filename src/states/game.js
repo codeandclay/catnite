@@ -75,6 +75,9 @@ export default class extends Phaser.State {
   createCat(){
     let cat = this.cats.create(config.width + config.spriteSize, config.height - (config.spriteSize*3-1), 'cat_walk');
     cat.body.velocity.x = config.catSpeed;
+    cat.body.setSize(9, 6);
+    cat.body.offset.x = 4;
+    cat.body.offset.y = 8;
     cat.animations.add('walk', [0, 1, 2, 3, 4, 5], 8, true);
     cat.animations.play('walk');
   }
