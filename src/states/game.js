@@ -47,6 +47,7 @@ export default class extends Phaser.State {
     // Add miner
     this.miner = this.add.sprite(config.spriteSize*0.5, 0, 'miner');
     this.miner.animations.add('walk', [0, 1, 2, 3], 12, true);
+    this.miner.animations.add('jump', [5, 6], 5, false);
     this.miner.animations.play('walk');
 
     this.physics.arcade.enable(this.miner);
@@ -154,6 +155,9 @@ export default class extends Phaser.State {
     if(this.can_jump){
       this.switchDirection(directions[input.event.key]);
       this.miner.body.velocity.y = config.jumpStrength;
+      this.miner.animations.play('jump').onComplete.add(function(){
+        this.miner.animations.play('walk');
+      }, this);
       this.can_jump = false;
     }
   }
