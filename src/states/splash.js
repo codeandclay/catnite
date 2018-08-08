@@ -36,6 +36,10 @@ export default class extends Phaser.State {
 
     // Load tiles
     this.load.spritesheet('tiles', 'assets/images/sprites/tiles.png', 16, 16);
+
+    // Load particles
+    this.load.image('dirt', 'assets/images/particles/dirt.png');
+    this.load.image('blood', 'assets/images/particles/blood.png');
   }
 
   create () {

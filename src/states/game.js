@@ -74,6 +74,23 @@ export default class extends Phaser.State {
     this.createCat();
     // Then another n seconds later
     this.time.events.add(config.catInterval, this.createCat, this);
+
+    // Particles
+    this.dirt_emitter = game.add.emitter(0, 0, 100);
+    this.dirt_emitter.makeParticles('dirt');
+    this.dirt_emitter.gravity = 150;
+    this.dirt_emitter.minSpeed = 20;
+    this.dirt_emitter.maxSpeed = 20;
+    this.dirt_emitter.minAngle = -45;
+    this.dirt_emitter.maxAngle = -135;
+
+    this.blood_emitter = game.add.emitter(0, 0, 100);
+    this.blood_emitter.makeParticles('blood');
+    this.blood_emitter.minParticleScale = 1;
+    this.blood_emitter.maxParticleScale = 2;
+    this.blood_emitter.minSpeed = 5;
+    this.blood_emitter.maxSpeed = 10;
+    this.blood_emitter.gravity = 500;
   }
 
   createCat(){
@@ -116,6 +133,12 @@ export default class extends Phaser.State {
   }
 
   collidesWithPlatform(){
+    if(!this.can_jump){
+      // Miner kicks up some dirt when landing on platform
+      this.dirt_emitter.x = this.miner.x;
+      this.dirt_emitter.y = this.miner.body.y + (config.spriteSize/2) - 4;
+      this.dirt_emitter.start(true, 300, null, 5);
+    }
     this.can_jump = true;
     if(this.miner.body.velocity.x == 0) {
       this.miner.body.velocity.x = config.speed;
@@ -127,6 +150,9 @@ export default class extends Phaser.State {
       // increment score
       this.score.increment();
       // kill cat
+      this.blood_emitter.x = cat.x;
+      this.blood_emitter.y = cat.y + 4;
+      this.blood_emitter.start(true, 500, null, 20);
       this.reset(cat);
     } else {
       // game over
