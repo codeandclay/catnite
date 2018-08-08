@@ -1,11 +1,14 @@
 import config from '../config'
 import _ from 'lodash'
+import Score from '../lib/score'
 
 export default class extends Phaser.State {
   init() { }
   preload() { }
 
   create() {
+    this.score = new Score();
+
     // Flags
     this.can_jump = false;
 
@@ -120,6 +123,8 @@ export default class extends Phaser.State {
 
   collidesWithCat(miner, cat){
     if(!this.can_jump && miner.body.velocity.y > 0) {
+      // increment score
+      this.score.increment();
       // kill cat
       this.reset(cat);
     } else {

@@ -12,5 +12,6 @@ export default {
   jumpStrength: -180,
   catSpeed: -32,
   catInterval: 2500, // Number of ms between cat creation
-  catVelocityIncrease: 2.5
+  catVelocityIncrease: 2.5,
+  scoreIncrement: 10
 }
