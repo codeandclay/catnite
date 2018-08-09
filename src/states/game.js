@@ -103,6 +103,7 @@ export default class extends Phaser.State {
     cat.body.offset.x = 4;
     cat.body.offset.y = 8;
     cat.animations.add('walk', [0, 1, 2, 3, 4, 5], 8, true);
+    cat.animations.add('run', [0, 1, 2, 3, 4, 5], 12, true);
     cat.animations.play('walk');
   }
 
@@ -134,6 +135,12 @@ export default class extends Phaser.State {
       cat.x = 0 - config.spriteSize;
       cat.scale.x = -1;
       cat.body.velocity.x += config.catVelocityIncrease;
+    }
+    // Change cat texture to running if over a certain speed
+    if(Math.abs(cat.body.velocity.x) >= config.catRunningSpeed && !cat.running){
+      cat.running = true;
+      cat.loadTexture('cat_run');
+      cat.animations.play('run');
     }
   }
 
