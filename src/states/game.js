@@ -68,6 +68,16 @@ export default class extends Phaser.State {
     this.miner.body.offset.y = 8;
     this.miner.body.offset.x = 6;
 
+    // Add cats
+    this.cats = this.add.group();
+    this.cats.enableBody = true;
+
+    // Create two cats
+    // Create one straight away
+    this.createCat();
+    // Then another n seconds later
+    this.time.events.add(config.catInterval, this.createCat, this);
+
     // Add background rocks
     var yPos = config.height - config.spriteSize;
     for ( var xPos = 0; xPos < config.width; xPos+=config.spriteSize ) {
@@ -84,16 +94,6 @@ export default class extends Phaser.State {
         ground.frame = 8;
         ground.body.immovable = true;
     }
-
-    // Add cats
-    this.cats = this.add.group();
-    this.cats.enableBody = true;
-
-    // Create two cats
-    // Create one straight away
-    this.createCat();
-    // Then another n seconds later
-    this.time.events.add(config.catInterval, this.createCat, this);
   }
 
   createCat(){
