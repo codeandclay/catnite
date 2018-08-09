@@ -37,9 +37,14 @@ export default class extends Phaser.State {
     // Register startGame callback
     this.spaceKey.onDown.add(this.startGame, this);
     this.input.onTap.add(this.startGame, this);
+
+    // Play music
+    this.music = this.add.audio('menu_music');
+    this.music.play();
   }
 
   startGame(){
+    this.music.stop();
     this.state.start('Game');
   }
 }

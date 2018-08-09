@@ -94,6 +94,19 @@ export default class extends Phaser.State {
         ground.frame = 8;
         ground.body.immovable = true;
     }
+
+    // Set up SFX
+    this.splats_fx = [];
+    for (var i = 0; i < 6; i++) {
+        this.splats_fx.push(this.sound.add('splat0'+i));
+    }
+    this.dollar_sfx = this.add.audio('dollar_sfx');
+    this.jump_sfx = this.add.audio('jump_sfx');
+    this.landings_sfx = [this.add.audio('landing_sfx_a'), this.add.audio('landing_sfx_b')];
+    this.deaths_sfx = [this.add.audio('death_sfx'), this.add.audio('death_hit')];
+
+    // Initialise empty dollars
+    this.dollars = [];
   }
 
   createCat(){
@@ -121,6 +134,17 @@ export default class extends Phaser.State {
       if (cat.body.velocity.x < 0 && cat.x < 0 - config.spriteSize ||
           cat.body.velocity.x > 0 && cat.x > config.width + config.spriteSize) {
         this.reset(cat);
+      }
+    }, this);
+
+    this.dollars.forEach(function (dollar) {
+      // Scale up dollar signs as they float up screen
+      dollar.scale.x += (0.03);
+      dollar.scale.y += (0.03);
+      dollar.y -= 1.75;
+      // Recycle dollar signs
+      if (dollar.y < 0 - config.spriteSize * 3) { // Allow scaled dollars to travel all the way off screen
+        dollar.destroy()
       }
     }, this);
   }
@@ -152,6 +176,7 @@ export default class extends Phaser.State {
   collidesWithPlatform(){
     if(!this.can_jump){
       // Miner kicks up some dirt when landing on platform
+      this.landings_sfx.forEach(function(sfx){ sfx.play() });
       this.dirt_emitter.x = this.miner.x;
       this.dirt_emitter.y = this.miner.body.y + (config.spriteSize/2) - 4;
       this.dirt_emitter.start(true, 300, null, 5);
@@ -167,12 +192,24 @@ export default class extends Phaser.State {
       // increment score
       this.score.increment();
       // kill cat
+      var splat_fx = _.sample(this.splats_fx);
+      // spawn a dollar
+      var dollar = this.add.image(cat.x, cat.y - config.spriteSize/2, 'tiles');
+      dollar.anchor.setTo(0.5, 0.5);
+      dollar.frame = 0;
+      this.dollars.push(dollar);
+      // play sfx
+      splat_fx.play();
+      this.dollar_sfx.play();
+      // blood
       this.blood_emitter.x = cat.x;
       this.blood_emitter.y = cat.y + 4;
       this.blood_emitter.start(true, 500, null, 20);
+      // reuse cat
       this.reset(cat);
     } else {
-      // game over
+      // game over -- kill miner
+      this.deaths_sfx.forEach(function(sfx){  sfx.play() });
       miner.body.collideWorldBounds = false;
       this.can_jump = false;
       this.is_alive = false;
@@ -204,6 +241,7 @@ export default class extends Phaser.State {
 
     if(this.can_jump){
       this.switchDirection(directions[input.event.key]);
+      this.jump_sfx.play();
       this.miner.body.velocity.y = config.jumpStrength;
       this.miner.animations.play('jump').onComplete.add(function(){
         this.miner.animations.play('walk');

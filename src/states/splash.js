@@ -40,6 +40,21 @@ export default class extends Phaser.State {
     // Load particles
     this.load.image('dirt', 'assets/images/particles/dirt.png');
     this.load.image('blood', 'assets/images/particles/blood.png');
+
+    // Music
+    this.load.audio('menu_music', 'assets/audio/menu_music.wav');
+
+    // SFX
+    for (var i = 0; i < 6; i ++ ){
+      this.load.audio('splat0'+i, 'assets/audio/splats/Splat_0'+i+'.mp3');
+    }
+
+    this.load.audio('dollar_sfx', 'assets/audio/Collect_Point_01.wav');
+    this.load.audio('jump_sfx', 'assets/audio/Jump_03.wav');
+    this.load.audio('landing_sfx_a', 'assets/audio/SFX_Jump_09.wav');
+    this.load.audio('landing_sfx_b', 'assets/audio/Open_00.wav');
+    this.load.audio('death_sfx', 'assets/audio/Hero_Death_00.wav');
+    this.load.audio('death_hit', 'assets/audio/Explosion_04.wav');
   }
 
   create () {
