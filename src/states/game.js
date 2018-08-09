@@ -29,21 +29,23 @@ export default class extends Phaser.State {
 
     // Add background
     this.add.image(0,0,'background');
-    var yPos = config.height - config.spriteSize;
-    for ( var xPos = 0; xPos < config.width; xPos+=config.spriteSize ) {
-        let ground = this.add.image(xPos, yPos, 'tiles');
-        ground.frame = 13;
-    }
 
-    // Set up platforms
-    this.platforms = this.add.group();
-    this.platforms.enableBody = true; // Enables physics for all bodies in group
-    var yPos = config.height - config.spriteSize*2;
-    for ( var xPos = 0; xPos < config.width; xPos+=config.spriteSize ) {
-        let ground = this.platforms.create(xPos, yPos, 'tiles');
-        ground.frame = 8;
-        ground.body.immovable = true;
-    }
+    // Particles
+    this.dirt_emitter = game.add.emitter(0, 0, 100);
+    this.dirt_emitter.makeParticles('dirt');
+    this.dirt_emitter.gravity = 150;
+    this.dirt_emitter.minSpeed = 20;
+    this.dirt_emitter.maxSpeed = 20;
+    this.dirt_emitter.minAngle = -45;
+    this.dirt_emitter.maxAngle = -135;
+
+    this.blood_emitter = game.add.emitter(0, 0, 100);
+    this.blood_emitter.makeParticles('blood');
+    this.blood_emitter.minParticleScale = 1;
+    this.blood_emitter.maxParticleScale = 2;
+    this.blood_emitter.minSpeed = 5;
+    this.blood_emitter.maxSpeed = 10;
+    this.blood_emitter.gravity = 500;
 
     // Add miner
     this.miner = this.add.sprite(config.spriteSize*0.5, 0, 'miner');
@@ -92,23 +94,6 @@ export default class extends Phaser.State {
     this.createCat();
     // Then another n seconds later
     this.time.events.add(config.catInterval, this.createCat, this);
-
-    // Particles
-    this.dirt_emitter = game.add.emitter(0, 0, 100);
-    this.dirt_emitter.makeParticles('dirt');
-    this.dirt_emitter.gravity = 150;
-    this.dirt_emitter.minSpeed = 20;
-    this.dirt_emitter.maxSpeed = 20;
-    this.dirt_emitter.minAngle = -45;
-    this.dirt_emitter.maxAngle = -135;
-
-    this.blood_emitter = game.add.emitter(0, 0, 100);
-    this.blood_emitter.makeParticles('blood');
-    this.blood_emitter.minParticleScale = 1;
-    this.blood_emitter.maxParticleScale = 2;
-    this.blood_emitter.minSpeed = 5;
-    this.blood_emitter.maxSpeed = 10;
-    this.blood_emitter.gravity = 500;
   }
 
   createCat(){
