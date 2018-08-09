@@ -176,14 +176,9 @@ export default class extends Phaser.State {
       miner.body.collideWorldBounds = false;
       this.can_jump = false;
       this.is_alive = false;
-      // rotate miner and bounce him into the air
-      miner.body.velocity.y = -250;
-      miner.body.velocity.x *= -1.5;
-      if(miner.body.velocity.x > 0) {
-        this.miner.body.rotation = 45;
-      } else {
-        this.miner.body.rotation = -45;
-      }
+      // bounce miner into the air
+      miner.body.velocity.y = -300;
+      miner.body.velocity.x = cat.body.velocity.x * 2;
       // return to menu
       this.time.events.add(1500, function(){ this.state.start('Menu') }, this);
     }
