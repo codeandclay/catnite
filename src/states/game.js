@@ -126,15 +126,20 @@ export default class extends Phaser.State {
   }
 
   reset(cat){
+    var rand = _.random(1, 10, false);
+    var catVelocityIncrease = config.catVelocityIncrease;
+    if(rand > config.randomVelocityThreshold){
+      catVelocityIncrease *= 3;
+    }
     cat.body.velocity.x *= _.sample([-1, 1]);
     if(cat.body.velocity.x < 0){
       cat.x = config.width + config.spriteSize;
       cat.scale.x = 1;
-      cat.body.velocity.x -= config.catVelocityIncrease;
+      cat.body.velocity.x -= catVelocityIncrease;
     } else {
       cat.x = 0 - config.spriteSize;
       cat.scale.x = -1;
-      cat.body.velocity.x += config.catVelocityIncrease;
+      cat.body.velocity.x += catVelocityIncrease;
     }
     // Change cat texture to running if over a certain speed
     if(Math.abs(cat.body.velocity.x) >= config.catRunningSpeed && !cat.running){

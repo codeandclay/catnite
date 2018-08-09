@@ -14,5 +14,6 @@ export default {
   catInterval: 2500, // Number of ms between cat creation
   catVelocityIncrease: 2.5,
   scoreIncrement: 10,
-  catRunningSpeed: 55
+  catRunningSpeed: 55,
+  randomVelocityThreshold: 7
 }
