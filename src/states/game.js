@@ -11,6 +11,7 @@ export default class extends Phaser.State {
 
     // Flags
     this.can_jump = false;
+    this.is_alive = true;
 
     // Register keys
     this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
@@ -65,6 +66,23 @@ export default class extends Phaser.State {
     this.miner.body.offset.y = 8;
     this.miner.body.offset.x = 6;
 
+    // Add background rocks
+    var yPos = config.height - config.spriteSize;
+    for ( var xPos = 0; xPos < config.width; xPos+=config.spriteSize ) {
+        let ground = this.add.image(xPos, yPos, 'tiles');
+        ground.frame = 13;
+    }
+
+    // Set up platforms
+    this.platforms = this.add.group();
+    this.platforms.enableBody = true; // Enables physics for all bodies in group
+    var yPos = config.height - config.spriteSize*2;
+    for ( var xPos = 0; xPos < config.width; xPos+=config.spriteSize ) {
+        let ground = this.platforms.create(xPos, yPos, 'tiles');
+        ground.frame = 8;
+        ground.body.immovable = true;
+    }
+
     // Add cats
     this.cats = this.add.group();
     this.cats.enableBody = true;
@@ -104,11 +122,13 @@ export default class extends Phaser.State {
   }
 
   update() {
-    //  Collide the miner with the platform
-    this.physics.arcade.collide(this.miner, this.platforms, this.collidesWithPlatform, null, this);
+    if(this.is_alive){
+      //  Collide the miner with the platform
+      this.physics.arcade.collide(this.miner, this.platforms, this.collidesWithPlatform, null, this);
 
-    // Collide miner with cat
-    this.physics.arcade.overlap(this.miner, this.cats, this.collidesWithCat, null, this);
+      // Collide miner with cat
+      this.physics.arcade.overlap(this.miner, this.cats, this.collidesWithCat, null, this);
+    }
 
     // Place a cat at other end of screen when it walks offscreen
     this.cats.forEach(function(cat){
@@ -156,7 +176,19 @@ export default class extends Phaser.State {
       this.reset(cat);
     } else {
       // game over
-      this.state.start('Menu');
+      miner.body.collideWorldBounds = false;
+      this.can_jump = false;
+      this.is_alive = false;
+      // rotate miner and bounce him into the air
+      miner.body.velocity.y = -250;
+      miner.body.velocity.x *= -1.5;
+      if(miner.body.velocity.x > 0) {
+        this.miner.body.rotation = 45;
+      } else {
+        this.miner.body.rotation = -45;
+      }
+      // return to menu
+      this.time.events.add(1500, function(){ this.state.start('Menu') }, this);
     }
   }
 
