@@ -21,6 +21,9 @@ export default class extends Phaser.State {
     // Load bitmap font
     this.load.bitmapFont('bm_font', 'assets/fonts/font.png', 'assets/fonts/font.fnt');
 
+    // Load UI
+    this.load.image('game_over_text', 'assets/images/game_over_text.png');
+
     // Load miner
     this.load.spritesheet('miner',
       'assets/images/sprites/miner.png',

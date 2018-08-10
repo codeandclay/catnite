@@ -216,6 +216,11 @@ export default class extends Phaser.State {
       // bounce miner into the air
       miner.body.velocity.y = -300;
       miner.body.velocity.x = cat.body.velocity.x * 2;
+      // display gameover text
+      var gameover = this.add.image(config.width/2, config.height + config.spriteSize*2, 'game_over_text');
+      gameover.anchor.setTo(0.5,0.5);
+      var tween = game.add.tween(gameover);
+      tween.to({ y: config.height/2 - config.spriteSize/2 }, 300, 'Bounce', true, 0);
       // return to menu
       this.time.events.add(1500, function(){ this.state.start('Menu') }, this);
     }
