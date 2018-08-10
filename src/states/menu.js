@@ -27,6 +27,9 @@ export default class extends Phaser.State {
     var title = this.add.sprite(x, y, 'title');
     title.anchor.setTo(0.5, 0.5);
 
+    // Add mini sprites
+    this.mini_miner = this.add.sprite(x - 16, y - 17, 'mini_miner');
+
     // Register keys
     this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
