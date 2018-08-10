@@ -15,7 +15,7 @@ export default class extends Phaser.State {
     //
 
     // Menu
-    this.load.image('menu_bg','./assets/images/menu_bg.png');
+    this.load.image('title', './assets/images/title.png');
 
     // Load bitmap font
     this.load.bitmapFont('bm_font', 'assets/fonts/font.png', 'assets/fonts/font.fnt');

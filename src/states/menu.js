@@ -1,32 +1,35 @@
 import config from '../config';
 
 export default class extends Phaser.State {
-  init(){ }
+  init(){
+    this.stage.backgroundColor = '#3f2832';
+  }
 
   preload(){ }
 
   create(){
-    this.add.image(0,0,'menu_bg');
+    var x = config.width/2;
+    var y = config.height/2;
 
     // Add miner
-    var miner = this.add.sprite(
-      config.width/2 - config.spriteSize * 0.5,
-      config.height/2 - config.spriteSize * 2, 'miner'
-    );
+    var miner = this.add.sprite(x + 36, y, 'miner');
+    miner.anchor.setTo(0.5, 0.5);
     miner.animations.add('run', [0,1,2,3], 8, -1);
     miner.animations.play('run');
 
     // Add cat
-    var cat = this.add.sprite(
-      config.width/2 - config.spriteSize * 0.5,
-      config.height/2 + config.spriteSize, 'cat_walk'
-    )
+    var cat = this.add.sprite(x - 36, y, 'cat_walk');
+    cat.anchor.setTo(0.5, 0.5);
     cat.animations.add('walk', [0,1,2,3,4,5], 8, -1);
     cat.animations.play('walk');
 
+    // Add title
+    var title = this.add.sprite(x, y, 'title');
+    title.anchor.setTo(0.5, 0.5);
+
     // Add text
-    var text = game.add.bitmapText(config.width/2, config.height/2 - 1, 'bm_font','Placeholder instruction',16);
-    text.anchor.setTo(0.5);
+    // var text = game.add.bitmapText(config.width/2, config.height/2 - 1, 'bm_font','Placeholder instruction',16);
+    // text.anchor.setTo(0.5);
 
     // Register keys
     this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
