@@ -27,10 +27,6 @@ export default class extends Phaser.State {
     var title = this.add.sprite(x, y, 'title');
     title.anchor.setTo(0.5, 0.5);
 
-    // Add text
-    // var text = game.add.bitmapText(config.width/2, config.height/2 - 1, 'bm_font','Placeholder instruction',16);
-    // text.anchor.setTo(0.5);
-
     // Register keys
     this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
