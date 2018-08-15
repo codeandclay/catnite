@@ -107,6 +107,10 @@ export default class extends Phaser.State {
 
     // Initialise empty dollars
     this.dollars = [];
+
+    // Display score
+    this.score_text = this.add.bitmapText(config.spriteSize/2, 0, 'bmp_font', '0', 16);
+    this.add.bitmapText(config.width - config.spriteSize*2, 0, 'bmp_font', this.score.hi, 16);
   }
 
   createCat(){
@@ -147,6 +151,9 @@ export default class extends Phaser.State {
         dollar.destroy()
       }
     }, this);
+
+    // Display updated score
+    this.score_text.text = this.score.total;
   }
 
   reset(cat){
