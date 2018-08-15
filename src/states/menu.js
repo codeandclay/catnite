@@ -49,8 +49,7 @@ export default class extends Phaser.State {
     game.input.keyboard.addKeyCapture([ Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR ]);
 
     // Register startGame callback
-    this.spaceKey.onDown.add(this.startGame, this);
-    this.input.onTap.add(this.startGame, this);
+    this.input.keyboard.onPressCallback = this.startGame.bind(this);
 
     // Play music
     this.music = this.add.audio('menu_music');
