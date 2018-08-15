@@ -34,7 +34,12 @@ export default class extends Phaser.State {
     this.hiscore.anchor.setTo(0.5,1);
 
     // Display buttons
-    this.add.bitmapText(x, y+(config.spriteSize*2.75), 'bmp_font', 'Start', 16).anchor.setTo(0.5,1);
+    this.start_button = this.add.bitmapText(x, y+(config.spriteSize*2.75), 'bmp_font', 'Start', 16);
+    this.start_button.anchor.setTo(0.5,1);
+    this.start_button.inputEnabled = true;
+    // console.log(this.start_button.events);
+    this.start_button.events.onInputUp.add(this.startGame, this);
+
     this.add.bitmapText(x, y+(config.spriteSize*4), 'bmp_font', 'Go Ad Free', 16).anchor.setTo(0.5,1);
 
     // Register keys
