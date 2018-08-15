@@ -42,12 +42,6 @@ export default class extends Phaser.State {
 
     this.add.bitmapText(x, y+(config.spriteSize*4), 'bmp_font', 'Go Ad Free', 16).anchor.setTo(0.5,1);
 
-    // Register keys
-    this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-    // Stop the following keys from propagating up to the browser
-    game.input.keyboard.addKeyCapture([ Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR ]);
-
     // Register startGame callback
     this.input.keyboard.onPressCallback = this.startGame.bind(this);
 
