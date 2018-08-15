@@ -10,40 +10,38 @@ export default class extends Phaser.State {
 
   create(){
     var x = config.width/2;
-    var y = config.spriteSize+2;
+    var nudge = config.spriteSize/2;
+    var y = config.height/2 + nudge;
 
     // Add miner
-    var miner = this.add.sprite(x + 36, y+config.spriteSize*1.5, 'miner');
+    var miner = this.add.sprite(x + 36, y, 'miner');
     miner.anchor.setTo(0.5, 1);
     miner.animations.add('run', [0,1,2,3], 8, -1);
     miner.animations.play('run');
 
     // Add cat
-    var cat = this.add.sprite(x - 36, y+config.spriteSize*1.5, 'cat_walk');
+    var cat = this.add.sprite(x - 36, y, 'cat_walk');
     cat.anchor.setTo(0.5, 1);
     cat.animations.add('walk', [0,1,2,3,4,5], 8, -1);
     cat.animations.play('walk');
 
     // Add title
-    var title = this.add.sprite(x, y+config.spriteSize*1.5+1, 'title');
+    var title = this.add.sprite(x, y, 'title');
     title.anchor.setTo(0.5, 1);
 
     // Display hiscore
     this.score = new Score;
-    this.hiscore = this.add.bitmapText(x, y, 'bmp_font', 'HiScore '+this.score.hi, 16);
+    this.hiscore = this.add.bitmapText(x, config.spriteSize+nudge, 'bmp_font', 'HiScore '+this.score.hi, 16);
     this.hiscore.anchor.setTo(0.5,1);
 
-    // Display buttons
-    this.start_button = this.add.bitmapText(x, y+(config.spriteSize*2.75), 'bmp_font', 'Start', 16);
+    // Display start text
+    this.start_button = this.add.bitmapText(x, y+config.spriteSize*1.5, 'bmp_font', 'Tap to start', 16);
     this.start_button.anchor.setTo(0.5,1);
     this.start_button.inputEnabled = true;
-    // console.log(this.start_button.events);
-    this.start_button.events.onInputUp.add(this.startGame, this);
-
-    this.add.bitmapText(x, y+(config.spriteSize*4), 'bmp_font', 'Go Ad Free', 16).anchor.setTo(0.5,1);
 
     // Register startGame callback
     this.input.keyboard.onPressCallback = this.startGame.bind(this);
+    this.input.onTap.add(this.startGame, this);
 
     // Play music
     this.music = this.add.audio('menu_music');
