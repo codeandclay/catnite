@@ -1,6 +1,6 @@
 export default class extends Phaser.State {
   init() {
-    // this.stage.backgroundColor = '#EDEEC9'
+    this.stage.backgroundColor = '#3f2832';
   }
 
   preload() {
