@@ -45,6 +45,9 @@ export default class extends Phaser.State {
     this.load.image('dirt', 'assets/images/particles/dirt.png');
     this.load.image('blood', 'assets/images/particles/blood.png');
 
+    // Load hand image
+    this.load.image('hand', 'assets/images/hand.png');
+
     // Music
     this.load.audio('menu_music', 'assets/audio/menu_music.wav');
 

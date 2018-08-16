@@ -111,6 +111,21 @@ export default class extends Phaser.State {
     // Display score
     this.score_text = this.add.bitmapText(config.spriteSize/2, 0, 'bmp_font', '0', 16);
     this.add.bitmapText(config.width - config.spriteSize*2, 0, 'bmp_font', this.score.hi, 16);
+
+    // Display game instructions
+    var hand_y = config.height - config.spriteSize * 2;
+    var instructions_text = 'Tap to jump left & right';
+    this.instructions = []
+
+    if(this.score.hi <= 50){
+      this.instructions = [
+        this.add.image(config.spriteSize, hand_y, 'hand'),
+        this.add.image(config.width - config.spriteSize, hand_y, 'hand'),
+        this.add.bitmapText(config.width/2, hand_y + config.spriteSize + 2, 'bmp_font', instructions_text, 16)
+      ];
+    }
+
+    this.instructions.forEach(function(i){ i.anchor.setTo(0.5, 0.5)});
   }
 
   createCat(){
@@ -246,6 +261,11 @@ export default class extends Phaser.State {
   }
 
   jump(input){
+    // First hide any instructions
+    this.instructions.forEach(function(i){
+      this.add.tween(i).to({ y: config.height + config.spriteSize*2 }, 300, 'Linear', true, 0);
+    }.bind(this));
+
     let directions = {
       'ArrowLeft': 'left',
       'ArrowRight': 'right'
