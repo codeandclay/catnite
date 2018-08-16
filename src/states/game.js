@@ -21,8 +21,11 @@ export default class extends Phaser.State {
     game.input.keyboard.addKeyCapture([ Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR ]);
 
     // Jump on keypress
-    this.leftKey.onDown.add(this.jump, this);
-    this.rightKey.onDown.add(this.jump, this);
+    this.leftKey.onDown.add(this.handleKey, this);
+    this.rightKey.onDown.add(this.handleKey, this);
+
+    // Jump on tap
+    this.input.onTap.add(this.handleTap, this);
 
     // Enable physics
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -260,19 +263,38 @@ export default class extends Phaser.State {
     }
   }
 
-  jump(input){
+  handleTap(tap){
+    var direction;
+
+    if(tap.x <= config.width/2) {
+      direction = 'left';
+    } else if(tap.x > config.width/2) {
+      direction = 'right';
+    }
+
+    this.jump(direction);
+  }
+
+  handleKey(input){
+    var direction;
+
+    if(input.event.key == 'ArrowLeft') {
+      direction = 'left';
+    } else if(input.event.key == 'ArrowRight') {
+      direction = 'right';
+    }
+
+    this.jump(direction);
+  }
+
+  jump(direction){
     // First hide any instructions
     this.instructions.forEach(function(i){
       this.add.tween(i).to({ y: config.height + config.spriteSize*2 }, 300, 'Linear', true, 0);
     }.bind(this));
 
-    let directions = {
-      'ArrowLeft': 'left',
-      'ArrowRight': 'right'
-    }
-
     if(this.can_jump){
-      this.switchDirection(directions[input.event.key]);
+      this.switchDirection(direction);
       this.jump_sfx.play();
       this.miner.body.velocity.y = config.jumpStrength;
       this.miner.animations.play('jump').onComplete.add(function(){
