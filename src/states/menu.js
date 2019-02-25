@@ -35,7 +35,7 @@ export default class extends Phaser.State {
     this.hiscore.anchor.setTo(0.5,1);
 
     // Display start text
-    this.start_button = this.add.bitmapText(x, y+config.spriteSize*1.4, 'bmp_font', 'Tap to start', 16);
+    this.start_button = this.add.bitmapText(x, y+config.spriteSize*1.4, 'bmp_font', 'Use cursor keys', 16);
     this.start_button.anchor.setTo(0.5,1);
     this.start_button.inputEnabled = true;
 
