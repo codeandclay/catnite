@@ -120,7 +120,8 @@ export default class extends Phaser.State {
     var instructions_text = 'Tap to jump left & right';
     this.instructions = []
 
-    if(this.score.hi <= 50){
+    // Set minimum score to display instructions
+    if(this.score.hi <= -1){
       this.instructions = [
         this.add.image(config.spriteSize, hand_y, 'hand'),
         this.add.image(config.width - config.spriteSize, hand_y, 'hand'),
